@@ -1,0 +1,40 @@
+.index__form___b4nT0 {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  background-color: white;
+}
+
+.index__btnGroup___3F4wa {
+  display: flex;
+  justify-content: center;
+}
+
+.index__horizontal___1tdJC {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 40px;
+}
+
+.index__item___2XsiW {
+  min-width: 350px;
+  max-width: 500px;
+}
+
+.index__itemHoriz___3rH-D:first-of-type {
+  /* margin-left: 115px; */
+}
+
+.index__formItemWrap___3jMDJ {
+  display: flex;
+  text-align: left;
+}
+
+.index__formItemWrap___3jMDJ .ant-form-item-label {
+  flex: 1;
+}
+
+.index__formItemWrap___3jMDJ .ant-form-item-control-wrapper {
+  flex: 3;
+}
+
