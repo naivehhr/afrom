@@ -60,6 +60,7 @@ const App = props => {
       expandTrigger="hover"
       displayRender={displayRender}
       onChange={onChange}
+      value={value}
     />
   )
 }

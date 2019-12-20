@@ -22,8 +22,8 @@ export default class CustomComponent extends Component {
   //   const { onChange, onError } = this.props
   //   onChange(value)
   // }
-  // collectWrong
   render() {
-    return <Rate onChange={this.handleChange} valfue={this.props.value} />
+    const {value} = this.props
+    return <Rate onChange={this.handleChange} value={Number(value)} />
   }
 }

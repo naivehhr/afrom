@@ -4,14 +4,13 @@ import { IWidghtProps } from "./Widgets/Item"
 import {
   IAssemblyWidget,
   IFieldsOptions,
-  IFormProps,
-  IFormState
+  IFormProps
+  // IFormState
 } from "./interface"
 import {
   cleanObj,
   get,
   set,
-  merge,
   isEmpty,
   cloneDeep,
   validateFields
@@ -21,14 +20,19 @@ import { parsingLayout } from "./logic"
 import { WIDGET_TYPE } from "./constant"
 import styles from "./index.css"
 
-export default class Form extends React.Component<IFormProps, IFormState> {
-  static getDerivedStateFromProps(props: IFormProps, state: IFormState) {
-    const { formSchema, formData = {}, formError = {} } = props
-    return merge(state, {
-      data: formData,
-      error: formError,
-      schema: formSchema
-    })
+export default class Form extends React.Component<IFormProps, any> {
+  static getDerivedStateFromProps(props: IFormProps, state: any) {
+    // 暂不支持schema自定义组件通过props更新 JSON.stringify 会丢失对象
+    if (JSON.stringify(state.props) !== JSON.stringify(props)) {
+      const { formSchema, formData = {}, formError = {} } = props
+      return Object.assign(state, {
+        props,
+        data: formData,
+        error: formError,
+        schema: formSchema
+      })
+    }
+    return null
   }
   formValidates: {
     idPath: string
@@ -40,13 +44,20 @@ export default class Form extends React.Component<IFormProps, IFormState> {
   constructor(props: IFormProps) {
     super(props)
     this.state = {
+      props: props,
       schema: props.formSchema,
       data: props.formData || {},
-      error: props.formError || {}
+      error: props.formError || {},
     }
     this.formValidates = [] // 收集 schema 中配置的校验
     this.subInstance = new Subscribe()
   }
+  
+  // componentDidMount() {
+  //   setTimeout(() => {
+  //     this.setState({ data: {...this.state.data, select: 3 } })
+  //   }, 4000)
+  // }
 
   eventDispatch = () => {}
 
@@ -133,6 +144,7 @@ export default class Form extends React.Component<IFormProps, IFormState> {
         layout,
         ...rest
       } = schema
+      // console.log('schema', schema)
       const fieldsOptions: IFieldsOptions = {
         idPath,
         layout // 'horizontal' | 'vertical'
@@ -189,6 +201,7 @@ export default class Form extends React.Component<IFormProps, IFormState> {
         throw new Error("need component config")
       }
       const T = WIDGET_TYPE[type]
+      // console.log('widgetProps', widgetProps)
       fieldsOptions.widgetComponent = <T {...widgetProps} />
       fieldsList.push(fieldsOptions)
       this.formValidates = [
@@ -205,6 +218,8 @@ export default class Form extends React.Component<IFormProps, IFormState> {
     if (isEmpty(schema)) {
       return <div>need schema config</div>
     }
+    // console.log('schema', schema)
+
     return (
       <div style={{ minWidth: 500 }}>
         <div className={styles.form}>{this.assemblyForm()}</div>

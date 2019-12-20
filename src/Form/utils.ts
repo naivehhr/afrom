@@ -137,6 +137,10 @@ const set = (data: any, path = '', value: any) => {
   return data;
 };
 
+/**
+ * 校验
+ * @param validateParams 
+ */
 const validateFields = (validateParams: any): string[] => {
   const { label, value = '', type, validate } = validateParams;
   let errorList: string[] = [];
@@ -175,6 +179,11 @@ const validateFields = (validateParams: any): string[] => {
   return errorList;
 };
 
+
+/**
+ * 会改变源数据;
+ * 有点问题; 误用;
+ */
 const merge = (originData: any, targetData: any) => {
   const plc: symbol = Symbol();
   const originType = getType(originData);
@@ -183,8 +192,6 @@ const merge = (originData: any, targetData: any) => {
   if (typeof originData === 'object') {
     data = originType === 'object' ? {} : [];
   }
-  // 这个判断真蛋疼
-
   if (originType === 'object' && targetType === 'object') {
     for (const key in originData) {
       const originItem = originData[key];

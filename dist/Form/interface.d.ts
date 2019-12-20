@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 export interface IFormSchema {
     type: string;
     label: string;
@@ -29,6 +29,7 @@ export interface IAssemblyWidget {
     error?: any;
 }
 export interface IFormState {
+    props: {};
     schema: {};
     data?: {};
     error?: {};

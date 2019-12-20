@@ -2,10 +2,11 @@ import React from 'react';
 import Item, { IWidghtProps } from './Item';
 
 const Custom = (props: IWidghtProps) => {
-  const T = props.component;
+  const {component, ...rest} = props
+  const T = component;
   return (
-    <Item {...props}>
-      <T {...props} />
+    <Item {...rest}>
+      <T {...rest} />
     </Item>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
-import { IFormProps, IFormState } from "./interface";
-export default class Form extends React.Component<IFormProps, IFormState> {
-    static getDerivedStateFromProps(props: IFormProps, state: IFormState): any;
+import { IFormProps } from "./interface";
+export default class Form extends React.Component<IFormProps, any> {
+    static getDerivedStateFromProps(props: IFormProps, state: any): any;
     formValidates: {
         idPath: string;
         validate: object;

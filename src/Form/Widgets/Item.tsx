@@ -19,6 +19,7 @@ export interface IWidghtProps {
 }
 
 const ItemWrap = ({ label, error = '', validate: { required } = {}, children }: IWidghtProps) => {
+  // console.log('required', required)
   return (
     <Item
       label={label}

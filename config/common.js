@@ -27,7 +27,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        include: /node_modules|antd\.css/,
+        include: /node_modules|antd\.css|lib|dist/,
         use: [
           {
             loader: "style-loader"
@@ -39,7 +39,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        exclude: /node_modules|antd\.css/,
+        exclude: /node_modules|antd\.css|lib|dist/,
         use: [
           // {
           //   loader: "style-loader"
@@ -68,6 +68,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      // libcss: ''
       filename: path.resolve("./dev/index.html"), // 生成的html文件存放的地址和文件名
       template: path.resolve("./index.html") // 基于index.html模板进行生成html文件
     }),
