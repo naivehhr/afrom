@@ -9,12 +9,22 @@ export interface IFormSchema {
     isHidden?: boolean;
     customerEvent?: any;
 }
+export interface IOnChange {
+    value: any;
+    idPath: string;
+    formError: {};
+    formData: {};
+}
+export interface IOnSubmit {
+    formData: {};
+    formError?: {};
+}
 export interface IFormProps {
     formSchema: {};
     formData?: {};
     formError?: {};
-    onChange?: any;
-    onSubmit: any;
+    onChange?: (params: IOnChange) => void;
+    onSubmit: (params: IOnSubmit) => void;
     onBlur?: any;
 }
 export interface IFieldsOptions {

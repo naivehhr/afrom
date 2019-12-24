@@ -8,7 +8,7 @@ export default function App() {
   return (
     <div className={styles.bingo}>
       <div className={styles.form}>
-        <div style={{ color: "red" }}>表单测试</div>
+        <div style={{ fontSize: 18, marginBottom: 10 }}>表单测试</div>
         <Home />
       </div>
     </div>

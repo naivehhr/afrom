@@ -4,24 +4,17 @@ import { IWidghtProps } from "./Widgets/Item"
 import {
   IAssemblyWidget,
   IFieldsOptions,
-  IFormProps
-  // IFormState
+  IFormProps,
+  IFormState
 } from "./interface"
-import {
-  cleanObj,
-  get,
-  set,
-  isEmpty,
-  cloneDeep,
-  validateFields
-} from "./utils"
+import { cleanObj, get, set, isEmpty, cloneDeep, validateFields } from "./utils"
 import Subscribe from "./Subscribe"
 import { parsingLayout } from "./logic"
 import { WIDGET_TYPE } from "./constant"
 import styles from "./index.css"
 
-export default class Form extends React.Component<IFormProps, any> {
-  static getDerivedStateFromProps(props: IFormProps, state: any) {
+export default class Form extends React.Component<IFormProps, IFormState> {
+  static getDerivedStateFromProps(props: IFormProps, state: IFormState) {
     // 暂不支持schema自定义组件通过props更新 JSON.stringify 会丢失对象
     if (JSON.stringify(state.props) !== JSON.stringify(props)) {
       const { formSchema, formData = {}, formError = {} } = props
@@ -47,12 +40,12 @@ export default class Form extends React.Component<IFormProps, any> {
       props: props,
       schema: props.formSchema,
       data: props.formData || {},
-      error: props.formError || {},
+      error: props.formError || {}
     }
     this.formValidates = [] // 收集 schema 中配置的校验
     this.subInstance = new Subscribe()
   }
-  
+
   // componentDidMount() {
   //   setTimeout(() => {
   //     this.setState({ data: {...this.state.data, select: 3 } })
@@ -74,10 +67,10 @@ export default class Form extends React.Component<IFormProps, any> {
       const { error, data } = this.state
       onChange &&
         onChange({
-          formError: cloneDeep(error),
-          formData: cloneDeep(data),
+          value,
           idPath,
-          value
+          formData: cloneDeep(data),
+          formError: cloneDeep(error)
         })
     })
   }
@@ -91,12 +84,13 @@ export default class Form extends React.Component<IFormProps, any> {
   handleSubmit = () => {
     const { error, data } = this.state
     const { onSubmit } = this.props
-    // 收集不到自定义组件内部的自定义错误执行，重要
-    // console.log(data);
-    // console.log(error);
     if (this.validateForm()) {
       console.log("校验通过")
-      onSubmit && onSubmit(error, cleanObj(data))
+      onSubmit &&
+        onSubmit({
+          formError: error,
+          formData: cleanObj(data)
+        })
     }
   }
 
@@ -218,12 +212,11 @@ export default class Form extends React.Component<IFormProps, any> {
     if (isEmpty(schema)) {
       return <div>need schema config</div>
     }
-    // console.log('schema', schema)
 
     return (
-      <div style={{ minWidth: 500 }}>
+      <div className="aform" style={{ minWidth: 500 }}>
         <div className={styles.form}>{this.assemblyForm()}</div>
-        <div style={{ maxWidth: 500 }}>
+        <div style={{ maxWidth: 1500 }}>
           <div>data => {JSON.stringify(data)}</div>
           <div>error => {JSON.stringify(error)}</div>
         </div>

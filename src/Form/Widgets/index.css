@@ -1,4 +1,4 @@
-.formItemWrap {
+:global(.aform) .formItemWrap {
   display: flex;
   text-align: left;
 }
