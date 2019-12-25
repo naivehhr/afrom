@@ -32,8 +32,7 @@ class App extends React.Component<IAppProps> {
   }
 ```
 
-<img src='./assert/base.gif'>
-<img src='./assert/1.gif'>
+<img src='./assert/base.gif' width="600">
 
 ### 自定义组件
 

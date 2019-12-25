@@ -21,6 +21,9 @@ class App extends React.Component<IAppProps> {
         type: "string",
         label: "名称",
         placeholder: "请填写插件名称",
+        widgetOptions: {
+          prefix: "smile"
+        },
         validate: { required: true }
         // layout: "horizontal"
       },

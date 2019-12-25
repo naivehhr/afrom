@@ -13,7 +13,8 @@ export interface IWidghtProps {
   className?: string;
   component?: any;
   children?: ReactNode;
-  componentConfig?: any;
+  componentConfig?: any; // 这个应该不用了
+  widgetOptions?: any; // 透传 antd 参数
   onChange: (ids: string) => (value: any) => void;
   customerEvent: () => void;
 }
