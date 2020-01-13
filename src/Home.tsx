@@ -19,20 +19,20 @@ class App extends React.Component<IAppProps> {
     formSchema: {
       name: {
         type: "string",
-        label: "名称",
+        label: "邮箱/url_token123123123",
         placeholder: "请填写插件名称",
         widgetOptions: {
           prefix: "smile"
         },
+        layout: "horizontal",
         validate: { required: true }
-        // layout: "horizontal"
       },
       age: {
         type: "string",
-        label: "年龄",
+        label: "年龄123",
         placeholder: "请填写插件名称",
+        layout: 'horizontal',
         validate: { maxLen: 3, required: true }
-        // layout: 'horizontal',
       }
       // select: {
       //   type: "component",

@@ -1,17 +1,30 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js add .
+  /usr/local/bin/node /usr/local/bin/yarn add @type/classnames
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/huhaoran/.composer/vendor/bin:/Users/huhaoran/.rvm/bin
+  /Users/aran.hu/.yarn/bin:/Users/aran.hu/.config/yarn/global/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Users/aran.hu/.yarn/bin:/Users/aran.hu/.config/yarn/global/node_modules/.bin
 
 Yarn version: 
-  1.5.1
+  1.16.0
 
 Node version: 
-  10.16.0
+  11.10.1
 
 Platform: 
   darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@type%2fclassnames: Not found
+      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66091:18)
+      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:129590:22)
+      at Request.emit (events.js:197:13)
+      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:130562:10)
+      at Request.emit (events.js:197:13)
+      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:130484:12)
+      at Object.onceWrapper (events.js:285:13)
+      at IncomingMessage.emit (events.js:202:15)
+      at endReadableNT (_stream_readable.js:1129:12)
+      at processTicksAndRejections (internal/process/next_tick.js:76:17)
 
 npm manifest: 
   {
@@ -7683,16 +7696,3 @@ Lockfile:
       which-module "^2.0.0"
       y18n "^4.0.0"
       yargs-parser "^13.1.0"
-
-Trace: 
-  Error: Received malformed response from registry for undefined. The registry may be down.
-      at new MessageError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:186:110)
-      at Function.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:51419:15)
-      at Generator.next (<anonymous>)
-      at step (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:98:30)
-      at /usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:116:14
-      at new Promise (<anonymous>)
-      at new F (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:23451:28)
-      at Function.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:95:12)
-      at Function.findVersionInRegistryResponse (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:51461:19)
-      at NpmResolver.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:51479:28)

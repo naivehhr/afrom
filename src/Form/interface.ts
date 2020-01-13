@@ -23,6 +23,8 @@ export interface IOnSubmit {
 }
 
 export interface IFormProps {
+  style?: {}
+  className?: string
   formSchema: {}
   formData?: {}
   formError?: {}

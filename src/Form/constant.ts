@@ -4,6 +4,7 @@ import CustomComponent from './Widgets/Custom';
 import WidgetInput from './Widgets/Input';
 import WidgetRadio from './Widgets/Radio';
 import WidgetCheckbox from './Widgets/Checkbox';
+import Select from './Widgets/Select';
 
 export const WIDGET_TYPE: IWIdget = {
   string: WidgetInput,
@@ -11,5 +12,6 @@ export const WIDGET_TYPE: IWIdget = {
   display: Display,
   radio: WidgetRadio,
   checkbox: WidgetCheckbox,
+  select: Select,
 };
 

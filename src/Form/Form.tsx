@@ -1,17 +1,13 @@
-import React from "react"
-import { Button } from "antd"
-import { IWidghtProps } from "./Widgets/Item"
-import {
-  IAssemblyWidget,
-  IFieldsOptions,
-  IFormProps,
-  IFormState
-} from "./interface"
-import { cleanObj, get, set, isEmpty, cloneDeep, validateFields } from "./utils"
-import Subscribe from "./Subscribe"
-import { parsingLayout } from "./logic"
-import { WIDGET_TYPE } from "./constant"
-import styles from "./index.css"
+import React from 'react'
+import { Button } from 'antd'
+import classNames from 'classnames'
+import { IWidghtProps } from './Widgets/Item'
+import { IAssemblyWidget, IFieldsOptions, IFormProps, IFormState } from './interface'
+import { cleanObj, get, set, isEmpty, cloneDeep, validateFields } from './utils'
+import Subscribe from './Subscribe'
+import { parsingLayout } from './logic'
+import { WIDGET_TYPE } from './constant'
+import styles from './index.css'
 
 export default class Form extends React.Component<IFormProps, IFormState> {
   static getDerivedStateFromProps(props: IFormProps, state: IFormState) {
@@ -22,7 +18,7 @@ export default class Form extends React.Component<IFormProps, IFormState> {
         props,
         data: formData,
         error: formError,
-        schema: formSchema
+        schema: formSchema,
       })
     }
     return null
@@ -40,7 +36,7 @@ export default class Form extends React.Component<IFormProps, IFormState> {
       props: props,
       schema: props.formSchema,
       data: props.formData || {},
-      error: props.formError || {}
+      error: props.formError || {},
     }
     this.formValidates = [] // 收集 schema 中配置的校验
     this.subInstance = new Subscribe()
@@ -58,7 +54,7 @@ export default class Form extends React.Component<IFormProps, IFormState> {
     const { error, data } = this.state
     const { onChange } = this.props
     const { idPath, validate, label, type } = params
-    const fieldsVal = validateFields({ label, value, validate, type }) || ""
+    const fieldsVal = validateFields({ label, value, validate, type }) || ''
     const newError = { ...error }
     const newData = { ...data }
     set(newError, idPath, fieldsVal.toString())
@@ -70,7 +66,7 @@ export default class Form extends React.Component<IFormProps, IFormState> {
           value,
           idPath,
           formData: cloneDeep(data),
-          formError: cloneDeep(error)
+          formError: cloneDeep(error),
         })
     })
   }
@@ -85,11 +81,11 @@ export default class Form extends React.Component<IFormProps, IFormState> {
     const { error, data } = this.state
     const { onSubmit } = this.props
     if (this.validateForm()) {
-      console.log("校验通过")
+      console.log('校验通过')
       onSubmit &&
         onSubmit({
-          formError: error,
-          formData: cleanObj(data)
+          formError: isEmpty(error) ? null : cleanObj(error),
+          formData: cleanObj(data),
         })
     }
   }
@@ -107,8 +103,7 @@ export default class Form extends React.Component<IFormProps, IFormState> {
     for (const item of this.formValidates) {
       const { idPath, validate, label, type } = item
       const value = get(data, idPath)
-      const fieldsVal =
-        validate && validateFields({ label, value, type, validate })
+      const fieldsVal = validate && validateFields({ label, value, type, validate })
       if (fieldsVal) {
         set(validateResult, idPath, fieldsVal.toString()) // toString 暂时是为了处理多个错误的情况
       }
@@ -121,12 +116,7 @@ export default class Form extends React.Component<IFormProps, IFormState> {
   assemblyForm = () => {
     const { schema, data, error } = this.state
     const fieldsList: Array<IFieldsOptions> = []
-    const assemblyWidget = ({
-      idPath = "",
-      schema,
-      data = "",
-      error = ""
-    }: IAssemblyWidget) => {
+    const assemblyWidget = ({ idPath = '', schema, data = '', error = '' }: IAssemblyWidget) => {
       const {
         label,
         type,
@@ -141,9 +131,9 @@ export default class Form extends React.Component<IFormProps, IFormState> {
       // console.log('schema', schema)
       const fieldsOptions: IFieldsOptions = {
         idPath,
-        layout // 'horizontal' | 'vertical'
+        layout, // 'horizontal' | 'vertical'
       }
-      if (type === "object") {
+      if (type === 'object') {
         if (!properties) {
           throw new Error(`${idPath} is necessary parameters properties!`)
         }
@@ -153,14 +143,12 @@ export default class Form extends React.Component<IFormProps, IFormState> {
         let formName = prefix || title
         Object.keys(properties).forEach(key => {
           const itemSchema = properties[key]
-          const nIdPath = idPath
-            ? `${idPath}.${formName}.${key}`
-            : `${formName}.${key}`
+          const nIdPath = idPath ? `${idPath}.${formName}.${key}` : `${formName}.${key}`
           assemblyWidget({
             schema: itemSchema,
             idPath: nIdPath,
             data: get(data, `${formName}.${key}`),
-            error: get(error, `${formName}.${key}`)
+            error: get(error, `${formName}.${key}`),
           })
         })
         return
@@ -173,7 +161,7 @@ export default class Form extends React.Component<IFormProps, IFormState> {
             schema: itemSchema,
             idPath: nIdPath,
             data: data[key],
-            error: error[key]
+            error: error[key],
           })
         })
         return
@@ -189,19 +177,16 @@ export default class Form extends React.Component<IFormProps, IFormState> {
         onError: this.handleError({ idPath }), // onChange 实时回调
         onSubmitValidate: component && this.subInstance.subscribe(idPath), // onSubmit 时统一收集自定义组件的错误信息
         component,
-        ...rest
+        ...rest,
       }
-      if (type === "component" && !component) {
-        throw new Error("need component config")
+      if (type === 'component' && !component) {
+        throw new Error('need component config')
       }
       const T = WIDGET_TYPE[type]
       // console.log('widgetProps', widgetProps)
       fieldsOptions.widgetComponent = <T {...widgetProps} />
       fieldsList.push(fieldsOptions)
-      this.formValidates = [
-        ...this.formValidates,
-        { idPath, validate, label, type }
-      ]
+      this.formValidates = [...this.formValidates, { idPath, validate, label, type }]
     }
     assemblyWidget({ schema, data, error })
     return parsingLayout(fieldsList)
@@ -212,9 +197,10 @@ export default class Form extends React.Component<IFormProps, IFormState> {
     if (isEmpty(schema)) {
       return <div>need schema config</div>
     }
-
+    const { style = {}, className = '' } = this.props
+    const cx = classNames('aform', className)
     return (
-      <div className="aform" style={{ minWidth: 500 }}>
+      <div className={cx} style={{ minWidth: 500,...style }}>
         <div className={styles.form}>{this.assemblyForm()}</div>
         <div style={{ maxWidth: 1500 }}>
           <div>data => {JSON.stringify(data)}</div>

@@ -19,7 +19,7 @@ const WidgetInput = (props: IWidghtProps) => {
     } = event
     onChange(value)
   }
-  const prefixComponent = prefix ? <Icon type="smile" /> : <span />
+  const prefixComponent = prefix ? <Icon type="smile" /> : null
   return (
     <Item {...props}>
       <Input
